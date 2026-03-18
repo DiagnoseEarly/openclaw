@@ -37,7 +37,7 @@ Looking for chat channel docs (WhatsApp/Telegram/Discord/Slack/Mattermost (plugi
 - [Mistral](/providers/mistral)
 - [Moonshot AI (Kimi + Kimi Coding)](/providers/moonshot)
 - [NVIDIA](/providers/nvidia)
-- [Ollama (local models)](/providers/ollama)
+- [Ollama (cloud + local models)](/providers/ollama)
 - [OpenAI (API + Codex)](/providers/openai)
 - [OpenCode (Zen + Go)](/providers/opencode)
 - [OpenRouter](/providers/openrouter)
@@ -47,6 +47,7 @@ Looking for chat channel docs (WhatsApp/Telegram/Discord/Slack/Mattermost (plugi
 - [Vercel AI Gateway](/providers/vercel-ai-gateway)
 - [Venice (Venice AI, privacy-focused)](/providers/venice)
 - [vLLM (local models)](/providers/vllm)
+- [xAI](/providers/xai)
 - [Xiaomi](/providers/xiaomi)
 - [Z.AI](/providers/zai)
 

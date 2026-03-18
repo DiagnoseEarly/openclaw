@@ -1,6 +1,5 @@
 import { timingSafeEqual } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/zalo";
 import {
   createDedupeCache,
   createFixedWindowRateLimiter,
@@ -15,8 +14,9 @@ import {
   withResolvedWebhookRequestPipeline,
   WEBHOOK_ANOMALY_COUNTER_DEFAULTS,
   WEBHOOK_RATE_LIMIT_DEFAULTS,
-} from "openclaw/plugin-sdk/zalo";
-import { resolveClientIp } from "../../../src/gateway/net.js";
+  resolveClientIp,
+  type OpenClawConfig,
+} from "./runtime-api.js";
 import type { ResolvedZaloAccount } from "./accounts.js";
 import type { ZaloFetch, ZaloUpdate } from "./api.js";
 import type { ZaloRuntimeEnv } from "./monitor.js";
