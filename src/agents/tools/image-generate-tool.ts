@@ -12,7 +12,7 @@ import type {
 } from "../../image-generation/types.js";
 import { getImageMetadata } from "../../media/image-ops.js";
 import { saveMediaBuffer } from "../../media/store.js";
-import { loadWebMedia } from "../../plugin-sdk/web-media.js";
+import { loadWebMedia } from "../../media/web-media.js";
 import { resolveUserPath } from "../../utils.js";
 import { ToolInputError, readNumberParam, readStringParam } from "./common.js";
 import { decodeDataUrl } from "./image-tool.helpers.js";
@@ -230,7 +230,9 @@ function normalizeReferenceImages(args: Record<string, unknown>): string[] {
   return normalized;
 }
 
-function parseImageGenerationModelRef(raw: string | undefined): { provider: string; model: string } | null {
+function parseImageGenerationModelRef(
+  raw: string | undefined,
+): { provider: string; model: string } | null {
   const trimmed = raw?.trim();
   if (!trimmed) {
     return null;
@@ -258,7 +260,8 @@ function resolveSelectedImageGenerationProvider(params: {
   }
   return listRuntimeImageGenerationProviders({ config: params.config }).find(
     (provider) =>
-      provider.id === selectedRef.provider || (provider.aliases ?? []).includes(selectedRef.provider),
+      provider.id === selectedRef.provider ||
+      (provider.aliases ?? []).includes(selectedRef.provider),
   );
 }
 
@@ -298,7 +301,9 @@ function validateImageGenerationCapabilities(params: {
 
   if (params.size) {
     if (!modeCaps.supportsSize) {
-      throw new ToolInputError(`${provider.id} ${isEdit ? "edit" : "generate"} does not support size overrides.`);
+      throw new ToolInputError(
+        `${provider.id} ${isEdit ? "edit" : "generate"} does not support size overrides.`,
+      );
     }
     if ((geometry?.sizes?.length ?? 0) > 0 && !geometry?.sizes?.includes(params.size)) {
       throw new ToolInputError(
@@ -309,7 +314,9 @@ function validateImageGenerationCapabilities(params: {
 
   if (params.aspectRatio) {
     if (!modeCaps.supportsAspectRatio) {
-      throw new ToolInputError(`${provider.id} ${isEdit ? "edit" : "generate"} does not support aspectRatio overrides.`);
+      throw new ToolInputError(
+        `${provider.id} ${isEdit ? "edit" : "generate"} does not support aspectRatio overrides.`,
+      );
     }
     if (
       (geometry?.aspectRatios?.length ?? 0) > 0 &&
@@ -323,7 +330,9 @@ function validateImageGenerationCapabilities(params: {
 
   if (params.resolution) {
     if (!modeCaps.supportsResolution) {
-      throw new ToolInputError(`${provider.id} ${isEdit ? "edit" : "generate"} does not support resolution overrides.`);
+      throw new ToolInputError(
+        `${provider.id} ${isEdit ? "edit" : "generate"} does not support resolution overrides.`,
+      );
     }
     if (
       (geometry?.resolutions?.length ?? 0) > 0 &&

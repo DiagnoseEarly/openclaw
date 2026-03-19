@@ -5,7 +5,7 @@ read_when:
 title: "Security"
 ---
 
-# Security 🔒
+# Security
 
 > [!WARNING]
 > **Personal assistant trust model:** this guidance assumes one trusted operator boundary per gateway (single-user/personal assistant model).
@@ -25,7 +25,7 @@ This page explains hardening **within that model**. It does not claim hostile mu
 
 ## Quick check: `openclaw security audit`
 
-See also: [Formal Verification (Security Models)](/security/formal-verification/)
+See also: [Formal Verification (Security Models)](/security/formal-verification)
 
 Run this regularly (especially after changing config or exposing network surfaces):
 
@@ -840,7 +840,7 @@ Avoid:
 - Exposing relay/control ports over LAN or public Internet.
 - Tailscale Funnel for browser control endpoints (public exposure).
 
-### 0.7) Secrets on disk (what’s sensitive)
+### 0.7) Secrets on disk (sensitive data)
 
 Assume anything under `~/.openclaw/` (or `$OPENCLAW_STATE_DIR/`) may contain secrets or private data:
 
