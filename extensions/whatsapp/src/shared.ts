@@ -32,7 +32,11 @@ import {
   unsupportedSecretRefSurfacePatterns,
 } from "./security-contract.js";
 import { applyWhatsAppSecurityConfigFixes } from "./security-fix.js";
-import { canonicalizeLegacySessionKey, isLegacyGroupSessionKey } from "./session-contract.js";
+import {
+  canonicalizeLegacySessionKey,
+  deriveLegacySessionChatType,
+  isLegacyGroupSessionKey,
+} from "./session-contract.js";
 
 export const WHATSAPP_CHANNEL = "whatsapp" as const;
 
@@ -90,8 +94,12 @@ export async function loadWhatsAppChannelRuntime() {
   return await import("./channel.runtime.js");
 }
 
+async function loadWhatsAppSetupSurface() {
+  return await import("./setup-surface.js");
+}
+
 export const whatsappSetupWizardProxy = createWhatsAppSetupWizardProxy(
-  async () => (await loadWhatsAppChannelRuntime()).whatsappSetupWizard,
+  async () => (await loadWhatsAppSetupSurface()).whatsappSetupWizard,
 );
 
 const whatsappConfigAdapter = createScopedChannelConfigAdapter<ResolvedWhatsAppAccount>({
@@ -204,6 +212,12 @@ export function createWhatsAppPluginBase(params: {
       polls: true,
       reactions: true,
       media: true,
+      tts: {
+        voice: {
+          synthesisTarget: "voice-note",
+          transcodesAudio: true,
+        },
+      },
     },
     reload: { configPrefixes: ["web"], noopPrefixes: ["channels.whatsapp"] },
     gatewayMethods: ["web.login.start", "web.login.wait"],
@@ -245,6 +259,7 @@ export function createWhatsAppPluginBase(params: {
     config: base.config!,
     messaging: {
       defaultMarkdownTableMode: "bullets",
+      deriveLegacySessionChatType,
       resolveLegacyGroupSessionKey,
       isLegacyGroupSessionKey,
       canonicalizeLegacySessionKey: (params) =>
